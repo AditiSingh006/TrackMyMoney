@@ -25,12 +25,17 @@ const userResolver = {
                 const boyProfilePic = `https://avatar-placeholder.iran.liara.run/public/boy?username=${username}`;
                 const girlProfilePic = `https://avatar-placeholder.iran.liara.run/public/girl?username=${username}`;
 
+                let profilePic;
+                if (gender === "male") profilePic = boyProfilePic;
+                else if (gender === "female") profilePic = girlProfilePic;
+                else profilePic = Math.random() < 0.5 ? boyProfilePic : girlProfilePic;
+
                 const newUser = new User({
                     username,
                     name,
                     password: hashedPassword,
                     gender,
-                    profilePic: gender === "male" ? boyProfilePic : girlProfilePic
+                    profilePic: profilePic
                 });
 
                 await newUser.save();
