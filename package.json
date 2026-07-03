@@ -16,13 +16,14 @@
     "@as-integrations/express5": "^1.1.2",
     "@graphql-tools/merge": "^9.1.10",
     "bcryptjs": "^3.0.3",
+    "connect-mongo": "^6.0.0",
     "connect-mongodb-session": "^5.0.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
     "graphql": "^16.14.2",
     "graphql-passport": "^0.6.8",
-    "mongoose": "^9.7.3",
+    "mongoose": "^8.24.1",
     "passport": "^0.7.0"
   },
   "devDependencies": {

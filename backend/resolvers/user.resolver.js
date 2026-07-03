@@ -51,6 +51,7 @@ const userResolver = {
         login: async(_, {input}, context) => {
             try {
                 const {username, password} = input;
+                if(!username || !password) throw new Error("All fields are required");
                 const {user} = await context.authenticate("graphql-local", {username, password});
 
                 await context.login(user);
@@ -61,13 +62,13 @@ const userResolver = {
             }
         },
 
-        logout: async(_,__,{req,res}) => {
+        logout: async(_,__,context) => {
             try {
                 await context.logout();
-                req.session.destroy((err) => {
+                context.req.session.destroy((err) => {
                     if(err) throw err;
                 });
-                res.clearCookie("connect.sid");
+                context.res.clearCookie("connect.sid");
 
                 return { message: "Logged out successfully" };
 
@@ -78,7 +79,7 @@ const userResolver = {
         },
     },
     Query: {
-        authUser: async(_,__,{req}) => {
+        authUser: async(_,__,context) => {
             try {
                 const user = await context.getUser();
                 return user;
