@@ -48,7 +48,7 @@ const transactionResolver = {
                 throw new Error(error.message || "Internal server error");
             }
         },
-        deleteTransaction: async(_, transactionId) =>{
+        deleteTransaction: async(_, {transactionId}) =>{
             try {
                 const deletedTransaction = await Transaction.findByIdAndDelete(transactionId);
                 return deletedTransaction;
