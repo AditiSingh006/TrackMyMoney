@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.14.1",
+    "@fontsource/cormorant-garamond": "^5.2.11",
+    "@fontsource/playfair-display": "^5.2.8",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "chart.js": "^4.5.1",
     "clsx": "^2.1.1",
