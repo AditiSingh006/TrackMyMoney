@@ -7,7 +7,7 @@ const TransactionForm = () => {
 	// TO DO => WHEN RELATIONSHIPS ARE ADDED, CHANGE THE REFETCH QUERY A BIT
 
 	const [createTransaction, {loading}] = useMutation(CREATE_TRANSACTION,{
-		refetchQueries: ['GetTransactions'],
+		refetchQueries: ['GetTransactions', 'GetTransactionStatistics'],
 	});
 
 	const handleSubmit = async (e) => {
@@ -125,6 +125,7 @@ const TransactionForm = () => {
 						id='amount'
 						name='amount'
 						type='number'
+						required
 						placeholder='5000'
 					/>
 				</div>
@@ -157,6 +158,7 @@ const TransactionForm = () => {
 						type='date'
 						name='date'
 						id='date'
+						required
 						className='appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-[11px] px-4 mb-3 leading-tight focus:outline-none
 						 focus:bg-white'
 						placeholder='Select date'

@@ -1,6 +1,7 @@
 import { users } from '../dummyData/data.js'
 import User from '../models/user.model.js';
 import bcrypt from 'bcryptjs';
+import Transaction from "../models/transaction.model.js";
 
 const userResolver = {
     Mutation: {
@@ -21,21 +22,14 @@ const userResolver = {
                 const salt = await bcrypt.genSalt(10);
                 const hashedPassword = await bcrypt.hash(password, salt);
 
-                // https://avatar-placeholder.iran.liara.run/
-                const boyProfilePic = `https://avatar-placeholder.iran.liara.run/public/boy?username=${username}`;
-                const girlProfilePic = `https://avatar-placeholder.iran.liara.run/public/girl?username=${username}`;
-
-                let profilePic;
-                if (gender === "male") profilePic = boyProfilePic;
-                else if (gender === "female") profilePic = girlProfilePic;
-                else profilePic = Math.random() < 0.5 ? boyProfilePic : girlProfilePic;
+                const profilePicture = `https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=${encodeURIComponent(username)}`;
 
                 const newUser = new User({
                     username,
                     name,
                     password: hashedPassword,
                     gender,
-                    profilePic: profilePic
+                    profilePicture,
                 });
 
                 await newUser.save();
@@ -100,7 +94,17 @@ const userResolver = {
     },
 
     // to do: add user/tranaction relation
-    
+    User: {
+        transactions: async (parent) => {
+            try {
+                const transactions = await Transaction.find({userId: parent._id});
+                return transactions;
+            } catch (error) {
+                console.log("Error in user.transactions resolver:", error);
+                throw new Error(error.message || "Internal server error");
+            }
+        },
+    },
 };
 
 export default userResolver;
